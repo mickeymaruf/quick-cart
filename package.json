@@ -1,0 +1,22 @@
+{
+  "name": "easycart",
+  "version": "1.0.0",
+  "description": "A simple easy to integration cart extension for your website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mickeymaruf/easycart.git"
+  },
+  "keywords": [
+    "easycart"
+  ],
+  "author": "Md Maruf Hossain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mickeymaruf/easycart/issues"
+  },
+  "homepage": "https://github.com/mickeymaruf/easycart#readme"
+}
