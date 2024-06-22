@@ -1,2 +1,3 @@
-# easycart
-A simple easy to integration cart extension for your website.
+# Quick Cart 🛒
+
+A Faster to integrate and Easy to maintain Cart plugin for your website.

@@ -1,22 +1,38 @@
 {
-  "name": "easycart",
-  "version": "1.0.0",
-  "description": "A simple easy to integration cart extension for your website.",
-  "main": "index.js",
+  "name": "quick-cart",
+  "version": "0.0.1",
+  "description": "A Faster to integrate and Easy to maintain Cart plugin for your website.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "build": "rollup -c"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mickeymaruf/easycart.git"
   },
   "keywords": [
-    "easycart"
+    "quick-cart",
+    "cart"
   ],
   "author": "Md Maruf Hossain",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mickeymaruf/easycart/issues"
   },
-  "homepage": "https://github.com/mickeymaruf/easycart#readme"
+  "homepage": "https://github.com/mickeymaruf/easycart#readme",
+  "devDependencies": {
+    "@babel/preset-react": "^7.24.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rollup": "^2.79.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
 }
