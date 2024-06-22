@@ -1,3 +1,5 @@
-import Test from "./components/Test";
+import "./index.css";
+import Cart from "./components/Cart/Cart";
+import Products from "./components/Products/Products";
 
-export { Test };
+export { Cart, Products };

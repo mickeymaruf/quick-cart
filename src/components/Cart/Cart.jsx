@@ -7,7 +7,7 @@ function Cart() {
     <>
       <div
         onClick={() => setOpened(false)}
-        className={`${opened ? "opacity-100" : "opacity-0"} fixed left-0 top-0 h-full w-full bg-black/50 duration-200`}
+        className={`${opened ? "opacity-100" : "opacity-0"} fixed left-0 top-0 h-full w-full bg-black/60 duration-200`}
       ></div>
       <aside
         className={`z-[99999999999] ${opened ? "right-0" : "-right-96"} fixed top-0 h-screen w-96 bg-white duration-200`}
