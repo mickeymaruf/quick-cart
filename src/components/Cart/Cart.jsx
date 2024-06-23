@@ -1,99 +1,105 @@
-import React, { useState } from "react";
+import React from "react";
 import { useCart } from "../../context/CartContext";
+import CartItem from "./CartItem";
+import { RxCross2 } from "react-icons/rx";
 
 export function Cart() {
-  const [opened, setOpened] = useState(false);
-  const { cart, increaseQuantity, decreaseQuantity, removeFromCart } =
-    useCart();
+  const { cart, opened, setOpened } = useCart();
   const totalProducts = cart.reduce(
     (total, product) => total + product.quantity,
     0,
   );
+  const totalPrice = cart.reduce((total, product) => total + product.price, 0);
 
   return (
     <>
       {opened && (
         <div
           onClick={() => setOpened(false)}
-          className={`${opened ? "opacity-100" : "opacity-0"} fixed left-0 top-0 h-full w-full bg-black/60 duration-200`}
+          className={`${opened ? "opacity-100" : "opacity-0"} fixed left-0 top-0 h-full w-[99%] bg-black/60 duration-200`}
         ></div>
       )}
       <aside
         className={`z-[99999999999] ${opened ? "right-0" : "-right-96"} fixed top-0 h-screen w-96 bg-white duration-200`}
       >
         {/* close */}
-        <button
-          type="button"
-          onClick={() => setOpened(false)}
-          className="absolute right-5 top-5"
-        >
-          <img
-            width="35"
-            height="35"
-            src="https://img.icons8.com/ios/50/multiply.png"
-            alt="multiply"
-          />
-        </button>
+        <div className="flex h-full flex-col justify-between">
+          <button
+            onClick={() => setOpened(false)}
+            className="group absolute right-6 top-2 cursor-pointer rounded-full bg-white p-3 outline-none"
+          >
+            <RxCross2 size={23} className="group-hover:opacity-60" />
+          </button>
 
-        <div className="p-8">
-          <h2 className="mb-4 text-2xl font-bold">Your Cart</h2>
-          {cart.length === 0 && (
-            <p className="text-gray-600">Your cart is empty</p>
-          )}
-          {cart.length > 0 && (
-            <>
-              <p className="mb-4">Total Products: {totalProducts}</p>
-              <ul>
-                {cart.map((product) => (
-                  <li
-                    key={product.id}
-                    className="flex items-center justify-between border-b border-gray-200 py-2"
-                  >
-                    <div className="flex items-center">
-                      <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        className="mr-4 h-12 w-12 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="text-lg font-semibold">{product.name}</p>
-                        <p className="text-gray-600">
-                          ${product.price} x {product.quantity}
-                        </p>
+          <div className="overflow-y-auto">
+            <div className="p-6 md:p-8">
+              <h3 className="text-[22px] font-medium">Your Cart</h3>
+
+              {cart.length === 0 ? (
+                <div className="mt-8 text-center font-semibold">
+                  <p className="mb-6 text-sm">
+                    Your cart is empty. <br /> Fill it with something good.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="mb-4 mt-6 flex items-center justify-center gap-3 bg-[#FFF5C2] px-6 py-4 md:justify-start">
+                    <div className="relative flex h-4 w-4 items-center justify-center">
+                      <div className="rounded-full border border-[#FFD600] p-0.5">
+                        <div className="h-3 w-3 rounded-full bg-[#FFD600]"></div>
                       </div>
+                      <div className="absolute left-0 top-0 h-4 w-4 animate-ping rounded-full bg-[#FFD600]/60"></div>
                     </div>
-                    <div className="flex items-center">
-                      <button
-                        onClick={() => increaseQuantity(product.id)}
-                        className="mr-2 rounded bg-blue-500 px-2 py-1 font-bold text-white hover:bg-blue-600"
-                      >
-                        +
-                      </button>
-                      <button
-                        onClick={() => decreaseQuantity(product.id)}
-                        className="mr-2 rounded bg-red-500 px-2 py-1 font-bold text-white hover:bg-red-600"
-                      >
+                    <span className="text-[13px] text-black">
+                      Nice! You unlocked the Welcome Offer: 20% off.
+                    </span>
+                  </div>
+
+                  <div className="space-y-6">
+                    {cart?.map((item) => (
+                      <CartItem key={item.id} {...item} />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          {cart.length > 0 && (
+            <div className="sticky bottom-0 left-0 w-full bg-white px-6 pb-4 md:px-8">
+              <div className="border-t py-2">
+                <table className="w-full text-sm">
+                  <tbody>
+                    <tr className="text-[#619C1C]">
+                      <td className="py-1 font-semibold">
+                        Welcome Offer: 20% off
+                      </td>
+                      <td className="py-1 text-right">
                         -
-                      </button>
-                      <button
-                        onClick={() => removeFromCart(product.id)}
-                        className="rounded bg-gray-300 px-2 py-1 font-bold text-gray-800 hover:bg-gray-400"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4">
-                <button
-                  // onClick={clearCart}
-                  className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-600"
-                >
-                  Clear Cart
-                </button>
+                        {/* {toAmount({
+                    amount: (totalPrice * 20) / 100,
+                    amount_type: "number",
+                  })} */}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-1 font-semibold">Subtotal</td>
+                      <td className="py-1 text-right">
+                        {/* {toAmount({ amount: totalPrice, amount_type: "number" })} */}
+                        {totalPrice}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-1 font-semibold">Shipping</td>
+                      <td className="py-1 text-right">Free</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </>
+              <button className="w-full rounded-full border bg-blue-900 py-2.5 text-center text-sm font-semibold text-white duration-200 md:py-3.5 md:text-[15px]">
+                Continue to Checkout
+              </button>
+            </div>
           )}
         </div>
 
@@ -109,7 +115,6 @@ export function Cart() {
             src="https://img.icons8.com/retro/32/shopping-cart-loaded.png"
             alt="shopping-cart-loaded"
           />
-          {/* <span className="text-4xl">🛒</span> */}
           <div className="absolute -right-3 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm font-medium text-white">
             {totalProducts}
           </div>

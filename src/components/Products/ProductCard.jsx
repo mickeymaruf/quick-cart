@@ -5,7 +5,7 @@ const ProductCard = ({ product = {} }) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="m-4 max-w-xs overflow-hidden rounded shadow-lg">
+    <div className="m-4 w-[320px] max-w-xs overflow-hidden rounded shadow-lg">
       <img className="w-full" src={product.imageUrl} alt={product.name} />
       <div className="px-6 py-4">
         <div className="mb-2 text-xl font-bold">{product.name}</div>

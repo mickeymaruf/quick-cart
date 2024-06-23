@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext } from "react";
-import { Cart } from "../components/Cart";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { Cart } from "../components/Cart/Cart";
 
 const CartContext = createContext();
 
@@ -9,6 +9,7 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [opened, setOpened] = useState(false);
 
   const addToCart = (productToAdd) => {
     const productIndex = cart.findIndex(
@@ -52,6 +53,18 @@ export const CartProvider = ({ children }) => {
     setCart([]);
   };
 
+  useEffect(() => {
+    if (opened) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [opened]);
+
   return (
     <CartContext.Provider
       value={{
@@ -61,10 +74,11 @@ export const CartProvider = ({ children }) => {
         clearCart,
         increaseQuantity,
         decreaseQuantity,
+        opened,
+        setOpened,
       }}
     >
       {children}
-
       <Cart />
     </CartContext.Provider>
   );
