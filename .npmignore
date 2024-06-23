@@ -5,3 +5,4 @@ rollup.config.js
 .prettierrc
 tailwind.config.js
 postcss.config.js
+automate.js
