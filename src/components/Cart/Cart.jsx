@@ -21,6 +21,20 @@ export function Cart() {
       <aside
         className={`z-[99999999999] ${opened ? "right-0" : "-right-96"} fixed top-0 h-screen w-96 bg-white duration-200`}
       >
+        {/* close */}
+        <button
+          type="button"
+          onClick={() => setOpened(false)}
+          className="absolute right-5 top-5"
+        >
+          <img
+            width="35"
+            height="35"
+            src="https://img.icons8.com/ios/50/multiply.png"
+            alt="multiply"
+          />
+        </button>
+
         <div className="p-8">
           <h2 className="mb-4 text-2xl font-bold">Your Cart</h2>
           {cart.length === 0 && (
@@ -89,8 +103,14 @@ export function Cart() {
           onClick={() => setOpened((s) => !s)}
           className="absolute -left-16 bottom-5"
         >
-          <span className="text-4xl">🛒</span>
-          <div className="absolute right-0 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm font-medium text-white">
+          <img
+            width="32"
+            height="32"
+            src="https://img.icons8.com/retro/32/shopping-cart-loaded.png"
+            alt="shopping-cart-loaded"
+          />
+          {/* <span className="text-4xl">🛒</span> */}
+          <div className="absolute -right-3 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm font-medium text-white">
             {totalProducts}
           </div>
         </button>
