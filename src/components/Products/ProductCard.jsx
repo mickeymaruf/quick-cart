@@ -1,23 +1,48 @@
 import React from "react";
 import { useCart } from "../../context/CartContext";
 
-const ProductCard = ({ product = {} }) => {
+const ProductCard = ({ product }) => {
+  const { name, imageUrl, description, price } = product;
   const { addToCart } = useCart();
 
   return (
-    <div className="m-4 w-[320px] max-w-xs overflow-hidden rounded shadow-lg">
-      <img className="w-full" src={product.imageUrl} alt={product.name} />
-      <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">{product.name}</div>
-        <p className="text-base text-gray-700">{product.description}</p>
+    <div className="w-[320px] max-w-xs overflow-hidden">
+      <div className="group relative mb-5 aspect-square">
+        <img
+          className="h-full w-full rounded-lg object-cover duration-200"
+          src={imageUrl}
+          alt={name}
+        />
       </div>
-      <div className="px-6 py-4">
-        <span className="mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-          ${product.price}
-        </span>
+
+      <h5 className="mb-2 font-semibold md:text-xl">{name}</h5>
+      <p className="text-sm opacity-70 md:text-base">
+        {description?.length > 120
+          ? description?.slice(0, 120) + " See more..."
+          : description}
+      </p>
+      <div className="mt-4 space-y-4">
+        <div className="flex items-center gap-x-2 font-bold">
+          <span className="text-[15px]">
+            {/* {toAmount({
+                  amount: price,
+                  amount_type: "number",
+                })} */}
+            Price: ${price}
+          </span>
+          <span className="ml-auto text-xs text-green-600">
+            {
+              // toAmount({
+              //   amount: product?.oldPrice - product?.price,
+              //   amount_type: "number",
+              // }).split(".")[0]
+            }
+            15% savings
+          </span>
+        </div>
         <button
           onClick={() => addToCart(product)}
-          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+          className="w-full rounded-full border border-gray-300 py-2.5 text-center text-sm font-semibold duration-200 hover:bg-blue-900 hover:text-white md:py-3 md:text-[15px]"
         >
           Add to Cart
         </button>

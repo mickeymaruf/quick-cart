@@ -57,7 +57,7 @@ export function Cart() {
 
                   <div className="space-y-6">
                     {cart?.map((item) => (
-                      <CartItem key={item.id} {...item} />
+                      <CartItem key={item._id} {...item} />
                     ))}
                   </div>
                 </>

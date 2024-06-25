@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (productToAdd) => {
     const productIndex = cart.findIndex(
-      (product) => product.id === productToAdd.id,
+      (product) => product._id === productToAdd._id,
     );
 
     if (productIndex !== -1) {
@@ -27,13 +27,13 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = (productId) => {
     setCart((prevCart) =>
-      prevCart.filter((product) => product.id !== productId),
+      prevCart.filter((product) => product._id !== productId),
     );
   };
 
   const increaseQuantity = (productId) => {
     const updatedCart = cart.map((product) =>
-      product.id === productId
+      product._id === productId
         ? { ...product, quantity: product.quantity + 1 }
         : product,
     );
@@ -42,7 +42,7 @@ export const CartProvider = ({ children }) => {
 
   const decreaseQuantity = (productId) => {
     const updatedCart = cart.map((product) =>
-      product.id === productId
+      product._id === productId
         ? { ...product, quantity: Math.max(1, product.quantity - 1) }
         : product,
     );
