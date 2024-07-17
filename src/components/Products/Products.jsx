@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
-export function Products({ PUBLIC_API_KEY }) {
+export function Products({ apiKey }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products/${PUBLIC_API_KEY}`)
+    fetch(`https://quick-cart-api.vercel.app/products/${apiKey}`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));

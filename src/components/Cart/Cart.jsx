@@ -2,6 +2,8 @@ import React from "react";
 import { useCart } from "../../context/CartContext";
 import CartItem from "./CartItem";
 import { RxCross2 } from "react-icons/rx";
+import { FaOpencart } from "react-icons/fa";
+import Button from "../Button";
 
 export function Cart() {
   const { cart, opened, setOpened } = useCart();
@@ -20,105 +22,94 @@ export function Cart() {
         ></div>
       )}
       <aside
-        className={`z-[99999999999] ${opened ? "right-0" : "-right-96"} fixed top-0 h-screen w-96 bg-white duration-200`}
+        className={`z-[99999999999] ${opened ? "right-0" : "-right-[450px]"} fixed top-0 h-screen w-[450px] bg-white duration-200`}
       >
         {/* close */}
         <div className="flex h-full flex-col justify-between">
-          <button
-            onClick={() => setOpened(false)}
-            className="group absolute right-6 top-2 cursor-pointer rounded-full bg-white p-3 outline-none"
-          >
-            <RxCross2 size={23} className="group-hover:opacity-60" />
-          </button>
-
           <div className="overflow-y-auto">
-            <div className="p-6 md:p-8">
-              <h3 className="text-[22px] font-medium">Your Cart</h3>
+            <div>
+              {/* <div className="mb-12 flex items-center justify-between">
+                <h3 className="text-[22px] font-medium">Your Cart</h3>
+                <RxCross2
+                  size={23}
+                  onClick={() => setOpened(false)}
+                  className="cursor-pointer"
+                />
+              </div> */}
 
               {cart.length === 0 ? (
-                <div className="mt-8 text-center font-semibold">
-                  <p className="mb-6 text-sm">
+                <div className="relative flex h-screen flex-col items-center justify-center text-center font-semibold">
+                  <p className="text-lg">
                     Your cart is empty. <br /> Fill it with something good.
                   </p>
+                  <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center justify-center gap-x-2">
+                    <span className="text-sm">Powered by</span>
+                    <a href="https://quickkcart.vercel.app/" target="_blank">
+                      <div className="relative flex w-fit items-center gap-2 text-lg font-bold">
+                        <FaOpencart className="text-blue-600" />
+                        Quick Cart
+                        <div className="absolute -bottom-0 right-0 h-0.5 w-5 bg-gray-300"></div>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               ) : (
-                <>
-                  <div className="mb-4 mt-6 flex items-center justify-center gap-3 bg-[#FFF5C2] px-6 py-4 md:justify-start">
-                    <div className="relative flex h-4 w-4 items-center justify-center">
-                      <div className="rounded-full border border-[#FFD600] p-0.5">
-                        <div className="h-3 w-3 rounded-full bg-[#FFD600]"></div>
-                      </div>
-                      <div className="absolute left-0 top-0 h-4 w-4 animate-ping rounded-full bg-[#FFD600]/60"></div>
-                    </div>
-                    <span className="text-[13px] text-black">
-                      Nice! You unlocked the Welcome Offer: 20% off.
-                    </span>
-                  </div>
-
-                  <div className="space-y-6">
-                    {cart?.map((item) => (
-                      <CartItem key={item._id} {...item} />
-                    ))}
-                  </div>
-                </>
+                <div className="space-y-6 p-8">
+                  {cart?.map((item) => (
+                    <CartItem key={item._id} {...item} />
+                  ))}
+                </div>
               )}
             </div>
           </div>
 
           {cart.length > 0 && (
             <div className="sticky bottom-0 left-0 w-full bg-white px-6 pb-4 md:px-8">
-              <div className="border-t py-2">
+              <div className="mb-2 border-t py-2">
                 <table className="w-full text-sm">
                   <tbody>
-                    <tr className="text-[#619C1C]">
-                      <td className="py-1 font-semibold">
-                        Welcome Offer: 20% off
-                      </td>
-                      <td className="py-1 text-right">
-                        -
-                        {/* {toAmount({
-                    amount: (totalPrice * 20) / 100,
-                    amount_type: "number",
-                  })} */}
-                      </td>
-                    </tr>
                     <tr>
-                      <td className="py-1 font-semibold">Subtotal</td>
-                      <td className="py-1 text-right">
+                      <td className="py-1">Subtotal</td>
+                      <td className="py-1 text-right font-semibold">
                         {/* {toAmount({ amount: totalPrice, amount_type: "number" })} */}
                         {totalPrice}
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-1 font-semibold">Shipping</td>
+                      <td className="py-1">Shipping</td>
                       <td className="py-1 text-right">Free</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <button className="w-full rounded-full border bg-blue-900 py-2.5 text-center text-sm font-semibold text-white duration-200 md:py-3.5 md:text-[15px]">
+              <Button variant="primary" fullWidth>
                 Continue to Checkout
-              </button>
+              </Button>
+              <div className="mt-4 flex items-center justify-center gap-x-2">
+                <span className="text-sm">Powered by</span>
+                <a href="https://quickkcart.vercel.app/" target="_blank">
+                  <div className="relative flex w-fit items-center gap-2 text-lg font-bold">
+                    <FaOpencart className="text-blue-600" />
+                    Quick Cart
+                    <div className="absolute -bottom-0 right-0 h-0.5 w-5 bg-gray-300"></div>
+                  </div>
+                </a>
+              </div>
             </div>
           )}
         </div>
 
         {/* cart icon */}
-        <button
+        <Button
           type="button"
           onClick={() => setOpened((s) => !s)}
-          className="absolute -left-16 bottom-5"
+          className="absolute -left-24 bottom-8 !p-3"
         >
-          <img
-            width="32"
-            height="32"
-            src="https://img.icons8.com/retro/32/shopping-cart-loaded.png"
-            alt="shopping-cart-loaded"
-          />
+          <FaOpencart size={30} className={opened && "text-white"} />
           <div className="absolute -right-3 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm font-medium text-white">
             {totalProducts}
           </div>
-        </button>
+        </Button>
       </aside>
     </>
   );
