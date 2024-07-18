@@ -14,7 +14,8 @@ function CartItem({ _id, name, imageUrl, quantity, price }) {
         <p>
           Price:{" "}
           <i className="text-sm font-medium">
-            {/* {toAmount({ amount: price, amount_type: "number" })} */}${price}
+            {/* {toAmount({ amount: price, amount_type: "number" })} */}$
+            {price * quantity}
           </i>
         </p>
         <div className="mt-8 flex items-center gap-2">

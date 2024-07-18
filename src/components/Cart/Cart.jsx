@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import CartItem from "./CartItem";
 import { RxCross2 } from "react-icons/rx";
@@ -11,7 +11,36 @@ export function Cart() {
     (total, product) => total + product.quantity,
     0,
   );
-  const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+  const totalPrice = cart.reduce(
+    (total, product) => total + Number(product.price * product.quantity),
+    0,
+  );
+
+  const [loading, setLoading] = useState(false);
+
+  const handleCheckout = () => {
+    setLoading(true);
+    fetch("http://localhost:5000/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        cart.map((p) => {
+          return { _id: p._id, quantity: p.quantity };
+        }),
+      ),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return res.json().then((json) => Promise.reject(json));
+      })
+      .then(({ url }) => {
+        window.location = url;
+      })
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(false));
+  };
 
   return (
     <>
@@ -70,7 +99,7 @@ export function Cart() {
                   <tbody>
                     <tr>
                       <td className="py-1">Subtotal</td>
-                      <td className="py-1 text-right font-semibold">
+                      <td className="py-1 text-right text-lg font-semibold">
                         {/* {toAmount({ amount: totalPrice, amount_type: "number" })} */}
                         {totalPrice}
                       </td>
@@ -82,8 +111,17 @@ export function Cart() {
                   </tbody>
                 </table>
               </div>
-              <Button variant="primary" fullWidth>
-                Continue to Checkout
+              <Button
+                variant="primary"
+                fullWidth
+                onClick={handleCheckout}
+                disabled={loading}
+              >
+                {loading ? (
+                  <div class="h-6 w-6 animate-spin rounded-full border-4 border-neutral-300 border-t-transparent"></div>
+                ) : (
+                  "Continue to Checkout"
+                )}
               </Button>
               <div className="mt-4 flex items-center justify-center gap-x-2">
                 <span className="text-sm">Powered by</span>
