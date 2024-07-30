@@ -3,6 +3,7 @@ import { useCart } from "../../context/CartContext";
 import CartItem from "./CartItem";
 import { FaOpencart } from "react-icons/fa";
 import Button from "../Button";
+import { CgChevronLeft } from "react-icons/cg";
 
 export function Cart() {
   const { cart, opened, setOpened, apiKey, APP_API_URL } = useCart();
@@ -52,8 +53,15 @@ export function Cart() {
         ></div>
       )}
       <aside
-        className={`z-[99999999999] ${opened ? "right-0" : "-right-[450px]"} fixed top-0 h-screen w-[450px] bg-white duration-200`}
+        className={`z-[99999999999] ${opened ? "right-0" : "-right-full md:-right-[450px]"} fixed top-0 h-screen w-full bg-white duration-200 md:w-[450px]`}
       >
+        <Button
+          onClick={() => setOpened(false)}
+          className="m-5 mb-0 flex aspect-square !p-1 md:hidden"
+        >
+          <CgChevronLeft size={25} color="#ffffff" />
+        </Button>
+
         {/* close */}
         <div className="flex h-full flex-col justify-between">
           <div className="overflow-y-auto">
@@ -74,7 +82,7 @@ export function Cart() {
                 </div>
               </div>
             ) : (
-              <div className="space-y-6 p-8">
+              <div className="space-y-6 p-5 md:p-8">
                 {cart?.map((item) => (
                   <CartItem key={item._id} {...item} />
                 ))}
@@ -83,7 +91,7 @@ export function Cart() {
           </div>
 
           {cart.length > 0 && (
-            <div className="sticky bottom-0 left-0 w-full bg-white px-6 pb-4 md:px-8">
+            <div className="sticky bottom-0 left-0 w-full bg-white px-5 pb-4 md:px-8">
               <div className="mb-2 border-t py-2">
                 <table className="w-full text-sm">
                   <tbody>
@@ -116,7 +124,7 @@ export function Cart() {
               <div className="mt-4 flex items-center justify-center gap-x-2">
                 <span className="text-sm">Powered by</span>
                 <a href="https://quickkcart.vercel.app/" target="_blank">
-                  <div className="relative flex w-fit items-center gap-2 text-lg font-bold">
+                  <div className="relative flex w-fit items-center gap-2 whitespace-nowrap text-lg font-bold">
                     <FaOpencart className="text-blue-600" />
                     Quick Cart
                     <div className="absolute -bottom-0 right-0 h-0.5 w-5 bg-gray-300"></div>

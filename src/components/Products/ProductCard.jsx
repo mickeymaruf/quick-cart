@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
-import { TbPlus } from "react-icons/tb";
 import { MdOutlineDone } from "react-icons/md";
 import Button from "../Button";
 
@@ -52,7 +51,7 @@ const ProductCard = ({ product }) => {
             }}
             fullWidth
           >
-            Add to Cart <TbPlus size={23} />
+            Add to Cart
           </Button>
         )}
       </div>

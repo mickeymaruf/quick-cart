@@ -2,9 +2,9 @@ import React from "react";
 
 const Button = ({ children, variant, className, fullWidth, ...rest }) => {
   const colors = {
-    primary: "bg-neutral-800 text-white shadow-[5px_5px_0px_#a3a3a3]",
-    success: "bg-green-500 text-white shadow-[5px_5px_0px_#bbf7d0]",
-    error: "bg-red-500 text-white shadow-[5px_5px_0px_#fecaca]",
+    primary: "bg-neutral-800 text-white",
+    success: "bg-green-500 text-white",
+    error: "bg-red-500 text-white",
   };
 
   return (

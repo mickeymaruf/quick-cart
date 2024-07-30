@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { Cart } from "../components/Cart/Cart";
 import { addFontLinks } from "../lib/utils";
 
-const APP_API_URL = "http://localhost:5000";
+const APP_API_URL = "https://quick-cart-api.vercel.app";
 
 const CartContext = createContext();
 
