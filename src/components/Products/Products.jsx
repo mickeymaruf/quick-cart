@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import { useCart } from "../../context/CartContext";
 
-export function Products({ apiKey }) {
+export function Products() {
   const [products, setProducts] = useState([]);
+  const { apiKey, APP_API_URL } = useCart();
 
   useEffect(() => {
-    fetch(`https://quick-cart-api.vercel.app/products/${apiKey}`)
+    fetch(`${APP_API_URL}/products/${apiKey}`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));

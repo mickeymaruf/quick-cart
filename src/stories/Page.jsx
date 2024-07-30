@@ -4,8 +4,8 @@ import { Products } from "../components/Products";
 
 function Page() {
   return (
-    <CartProvider>
-      <Products apiKey="hDw3ZoeXhiVc44qmQ6OIpiicOAa2" />
+    <CartProvider apiKey="MdoUyiJkCJZtqKddNtgi9QxLqUz2">
+      <Products />
     </CartProvider>
   );
 }

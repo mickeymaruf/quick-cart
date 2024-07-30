@@ -1,6 +1,5 @@
 import React from "react";
 import { useCart } from "../../context/CartContext";
-import { FiTrash } from "react-icons/fi";
 import Button from "../Button";
 import { RxCross1 } from "react-icons/rx";
 
@@ -8,7 +7,7 @@ function CartItem({ _id, name, imageUrl, quantity, price }) {
   const { increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
   return (
     <div className="flex gap-4 border-b pb-6">
-      <img className="h-28 w-28" src={imageUrl} alt="" />
+      <img className="h-28 w-28 object-cover" src={imageUrl} alt="" />
       <div className="flex-1">
         <h5 className="font-semibold">{name}</h5>
         <p>

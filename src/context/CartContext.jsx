@@ -2,13 +2,15 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { Cart } from "../components/Cart/Cart";
 import { addFontLinks } from "../lib/utils";
 
+const APP_API_URL = "http://localhost:5000";
+
 const CartContext = createContext();
 
 export const useCart = () => {
   return useContext(CartContext);
 };
 
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ apiKey, children }) => {
   const [cart, setCart] = useState([]);
   const [opened, setOpened] = useState(false);
 
@@ -74,6 +76,8 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider
       value={{
+        APP_API_URL,
+        apiKey,
         cart,
         addToCart,
         removeFromCart,

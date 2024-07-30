@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import CartItem from "./CartItem";
-import { RxCross2 } from "react-icons/rx";
 import { FaOpencart } from "react-icons/fa";
 import Button from "../Button";
 
 export function Cart() {
-  const { cart, opened, setOpened } = useCart();
+  const { cart, opened, setOpened, apiKey, APP_API_URL } = useCart();
   const totalProducts = cart.reduce(
     (total, product) => total + product.quantity,
     0,
@@ -20,22 +19,24 @@ export function Cart() {
 
   const handleCheckout = () => {
     setLoading(true);
-    fetch("http://localhost:5000/create-checkout-session", {
+    fetch(`${APP_API_URL}/create-checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-        cart.map((p) => {
+      body: JSON.stringify({
+        cartItems: cart.map((p) => {
           return { _id: p._id, quantity: p.quantity };
         }),
-      ),
+        apiKey,
+      }),
     })
       .then((res) => {
         if (res.ok) return res.json();
         return res.json().then((json) => Promise.reject(json));
       })
       .then(({ url }) => {
+        console.log(url);
         window.location = url;
       })
       .catch((e) => console.log(e))
@@ -56,40 +57,29 @@ export function Cart() {
         {/* close */}
         <div className="flex h-full flex-col justify-between">
           <div className="overflow-y-auto">
-            <div>
-              {/* <div className="mb-12 flex items-center justify-between">
-                <h3 className="text-[22px] font-medium">Your Cart</h3>
-                <RxCross2
-                  size={23}
-                  onClick={() => setOpened(false)}
-                  className="cursor-pointer"
-                />
-              </div> */}
-
-              {cart.length === 0 ? (
-                <div className="relative flex h-screen flex-col items-center justify-center text-center font-semibold">
-                  <p className="text-lg">
-                    Your cart is empty. <br /> Fill it with something good.
-                  </p>
-                  <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center justify-center gap-x-2">
-                    <span className="text-sm">Powered by</span>
-                    <a href="https://quickkcart.vercel.app/" target="_blank">
-                      <div className="relative flex w-fit items-center gap-2 text-lg font-bold">
-                        <FaOpencart className="text-blue-600" />
-                        Quick Cart
-                        <div className="absolute -bottom-0 right-0 h-0.5 w-5 bg-gray-300"></div>
-                      </div>
-                    </a>
-                  </div>
+            {cart.length === 0 ? (
+              <div className="relative flex h-screen flex-col items-center justify-center text-center font-semibold">
+                <p className="text-lg">
+                  Your cart is empty. <br /> Fill it with something good.
+                </p>
+                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center justify-center gap-x-2">
+                  <span className="text-sm">Powered by</span>
+                  <a href="https://quickkcart.vercel.app/" target="_blank">
+                    <div className="relative flex w-fit items-center gap-2 text-lg font-bold">
+                      <FaOpencart className="text-blue-600" />
+                      Quick Cart
+                      <div className="absolute -bottom-0 right-0 h-0.5 w-5 bg-gray-300"></div>
+                    </div>
+                  </a>
                 </div>
-              ) : (
-                <div className="space-y-6 p-8">
-                  {cart?.map((item) => (
-                    <CartItem key={item._id} {...item} />
-                  ))}
-                </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="space-y-6 p-8">
+                {cart?.map((item) => (
+                  <CartItem key={item._id} {...item} />
+                ))}
+              </div>
+            )}
           </div>
 
           {cart.length > 0 && (
@@ -118,7 +108,7 @@ export function Cart() {
                 disabled={loading}
               >
                 {loading ? (
-                  <div class="h-6 w-6 animate-spin rounded-full border-4 border-neutral-300 border-t-transparent"></div>
+                  <div className="h-6 w-6 animate-spin rounded-full border-4 border-neutral-300 border-t-transparent"></div>
                 ) : (
                   "Continue to Checkout"
                 )}
