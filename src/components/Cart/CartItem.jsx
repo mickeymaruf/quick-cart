@@ -1,47 +1,49 @@
 import React from "react";
 import { useCart } from "../../context/CartContext";
-import Button from "../Button";
-import { RxCross1 } from "react-icons/rx";
+import { IoCloseOutline } from "react-icons/io5";
+import { FiMinus, FiPlus } from "react-icons/fi";
 
 function CartItem({ _id, name, imageUrl, quantity, price }) {
   const { increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
   return (
-    <div className="flex gap-4 border-b pb-6">
-      <img className="h-28 w-28 object-cover" src={imageUrl} alt="" />
-      <div className="flex-1">
-        <h5 className="font-semibold">{name}</h5>
-        <p>
-          Price:{" "}
-          <i className="text-sm font-medium">
-            {/* {toAmount({ amount: price, amount_type: "number" })} */}$
-            {price * quantity}
-          </i>
-        </p>
-        <div className="mt-8 flex items-center gap-2">
-          <Button
+    <div className="relative flex items-center gap-4 border-b border-gray-300 pb-4">
+      <img
+        className="h-[70px] w-[70px] rounded-lg object-cover"
+        src={imageUrl}
+        alt={name}
+      />
+      <h5 className="flex-1 text-lg">{name}</h5>
+
+      <div className="flex flex-col items-end gap-y-1">
+        <p>${price * quantity} USD</p>
+
+        <div className="flex items-center rounded-full border border-gray-200 px-0.5">
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center"
             onClick={() => decreaseQuantity(_id)}
-            className="aspect-square h-8 w-8"
           >
-            -
-          </Button>
-          <div className="flex h-8 w-8 items-center justify-center rounded border text-sm">
+            <FiMinus />
+          </button>
+          <div className="flex h-10 w-5 items-center justify-center">
             {quantity}
           </div>
-          <Button
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center"
             onClick={() => increaseQuantity(_id)}
-            className="aspect-square h-8 w-8"
           >
-            +
-          </Button>
+            <FiPlus />
+          </button>
         </div>
       </div>
-      <Button
-        variant="error"
-        className="aspect-square h-8 w-8 !p-0"
+
+      <button
+        className="absolute -left-1.5 -top-1.5 aspect-square rounded-full bg-gray-500 p-1 text-white"
         onClick={() => removeFromCart(_id)}
       >
-        <RxCross1 />
-      </Button>
+        <IoCloseOutline size={18} />
+      </button>
     </div>
   );
 }

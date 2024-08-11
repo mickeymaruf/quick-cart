@@ -1,6 +1,6 @@
 {
   "name": "quick-cart",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "A Faster to integrate and Easy to maintain Cart plugin for your website.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
