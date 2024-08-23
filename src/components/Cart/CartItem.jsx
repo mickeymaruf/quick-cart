@@ -8,7 +8,7 @@ function CartItem({ _id, name, imageUrl, quantity, price }) {
   return (
     <div className="relative flex items-center gap-4 border-b border-gray-300 pb-4">
       <img
-        className="h-[70px] w-[70px] rounded-lg object-cover"
+        className="h-[70px] w-[70px] rounded-lg border border-gray-300 object-cover"
         src={imageUrl}
         alt={name}
       />

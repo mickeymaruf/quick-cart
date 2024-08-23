@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="group w-[320px] max-w-xs overflow-hidden rounded-xl bg-white">
+    <div className="group w-[320px] max-w-xs overflow-hidden rounded-xl border border-gray-300 bg-white">
       <div className="relative aspect-square">
         <img
           className="h-full w-full select-none object-cover duration-200 group-hover:scale-105"
@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
           alt={name}
         />
         <div className="absolute bottom-0 left-0 m-3">
-          <div className="flex w-fit items-center gap-4 rounded-full bg-white/80 p-1 pl-4 text-sm font-medium backdrop-blur-3xl">
+          <div className="flex w-fit items-center gap-4 rounded-full border border-gray-300 bg-white/80 p-1 pl-4 text-sm font-medium backdrop-blur-3xl">
             {name}{" "}
             <button
               type="button"
